@@ -3,8 +3,8 @@
 [001]   # Intro
 Name = Intro
 #-------------------------------
-[002]   # Lappet Town
-Name = Lappet Town
+[002]   # Pewter City
+Name = Pewter City
 Outdoor = true
 ShowArea = true
 MapPosition = 0,13,12
@@ -330,19 +330,19 @@ Name = Battle Frontier
 MapPosition = 0,17,10
 Flags = DisableBoxLink
 #-------------------------------
-[066]   # Safari Zone outside
-Name = Safari Zone
+[066]   # Pokemon Sanctuary outside
+Name = Pokemon Sanctuary
 Outdoor = true
 ShowArea = true
 MapPosition = 0,12,12
 BattleBack = field
 #-------------------------------
-[067]   # Safari Zone gate
-Name = Safari Zone
+[067]   # Pokemon Sanctuary gate
+Name = Pokemon Sanctuary
 MapPosition = 0,12,12
 #-------------------------------
-[068]   # Safari Zone
-Name = Safari Zone
+[068]   # Pokemon Sanctuary
+Name = Pokemon Sanctuary
 Outdoor = true
 ShowArea = true
 MapPosition = 0,12,12
@@ -395,3 +395,14 @@ Name = Tiall Region
 Outdoor = true
 MapPosition = 1,13,16
 BattleBack = city
+#-------------------------------
+[010]   # Pewter City Gym
+Name = Pewter City Gym
+MapPosition = 0,13,10
+BattleBack = indoor3
+Environment = Rock
+Flags = DisableBoxLink
+#-------------------------------
+[022]   # Gym Office
+Name = Gym Office
+MapPosition = 0,17,10
