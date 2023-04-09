@@ -2,7 +2,7 @@ name: Changelog
 on:
   push:
     branches:
-      - 'releases/**'
+      - 'release/**'
 jobs:
   changelog:
     runs-on: ubuntu-20.04
