@@ -16,27 +16,49 @@ jobs:
       (startsWith(github.event.pull_request.head.ref, 'release/') || startsWith(github.event.pull_request.head.ref, 'hotfix/'))
 
     steps:
-      - name: Extract version from branch name (for release branches)
-        if: startsWith(github.event.pull_request.head.ref, 'release/')
-        run: |
-          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
-          VERSION=${BRANCH_NAME#release/}
+#       - name: Extract version from branch name (for release branches)
+#         if: startsWith(github.event.pull_request.head.ref, 'release/')
+#         run: |
+#           BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+#           VERSION=${BRANCH_NAME#release/}
 
-          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+#           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Extract version from branch name (for hotfix branches)
-        if: startsWith(github.event.pull_request.head.ref, 'hotfix/')
-        run: |
-          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
-          VERSION=${BRANCH_NAME#hotfix/}
+#       - name: Extract version from branch name (for hotfix branches)
+#         if: startsWith(github.event.pull_request.head.ref, 'hotfix/')
+#         run: |
+#           BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+#           VERSION=${BRANCH_NAME#hotfix/}
 
-          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+#           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
       
-      - name: Create Release
-        run: gh release create $RELEASE_VERSION --generate-notes
+#       - name: Create Release
+#         run: gh release create $RELEASE_VERSION --generate-notes
+#         env:
+#           RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: "📥 Check-out"
+        uses: actions/checkout@v1
+        
+      - name: "✏️ Generate release changelog"
+        id: generate-release-changelog
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          onlyLastTag: "true"
+          stripHeaders: "true"
+          stripGeneratorNotice: "true"
+          
+      - name: "🚀 Create GitHub release"
+        uses: actions/create-release@v1
         env:
-          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: ${{ steps.generate-release-changelog.outputs.changelog }}
+
       
 #       - name: Create Release
 #         uses: thomaseizinger/create-release@1.0.0
@@ -63,3 +85,5 @@ jobs:
 
       # if needed, you can checkout the latest master here, build artifacts and publish / deploy them somewhere
       # the create-release action has an output `upload_url` output that you can use to upload assets
+
+      
