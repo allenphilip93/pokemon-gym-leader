@@ -6098,3 +6098,59 @@ Pocket = 8
 Price = 0
 Flags = KeyItem
 Description = Share 50% of exp with all the pokemons in the team.
+#-------------------------------
+[GAMBLER]
+Name = Gambler
+NamePlural = Gambler
+Pocket = 8
+Price = 2500
+Flags = KeyItem
+Description = Gambler can be asked to place bets and get rewards from Gym defense.
+#-------------------------------
+[HEALTHMERCHANT]
+Name = Health Merchant
+NamePlural = Health Merchant
+Pocket = 8
+Price = 2500
+Flags = KeyItem
+Description = Health Merchant can be used to purchase potions, antidotes etc.
+#-------------------------------
+[POKEBALLMERCHANT]
+Name = Pokeball Merchant
+NamePlural = Pokeball Merchant
+Pocket = 8
+Price = 2500
+Flags = KeyItem
+Description = Pokeball Merchant can be used to purchase pokeballs, repels etc.
+#-------------------------------
+[HOLDMERCHANT]
+Name = Hold Merchant
+NamePlural = Hold Merchant
+Pocket = 8
+Price = 2500
+Flags = KeyItem
+Description = Hold Merchant can be hired to purchase holdable items like berries, eviolite etc.
+#-------------------------------
+[TMMERCHANT]
+Name = TM Merchant
+NamePlural = TM Merchant
+Pocket = 8
+Price = 2500
+Flags = KeyItem
+Description = TM Merchant can be hired to purchase TMs, calcium etc.
+#-------------------------------
+[SCOUT]
+Name = Scout
+NamePlural = Scout
+Pocket = 8
+Price = 2500
+Flags = KeyItem
+Description = Scouts can find more specific trainers of your choice to battle for gym defense.
+#-------------------------------
+[GYMTRAINER]
+Name = Gym Trainer
+NamePlural = Gym Trainer
+Pocket = 8
+Price = 2500
+Flags = KeyItem
+Description = Hiring gym trainers increases the quality of the trainers you'd have to battle.
