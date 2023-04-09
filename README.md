@@ -1,4 +1,4 @@
-# pokemon-gym-leader
+# Pokemon Gym Leader
 
 ## Installation
 
