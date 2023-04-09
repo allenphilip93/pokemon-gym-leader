@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Extract version from branch name (for release branches)
-        if: startsWith(github.event.pull_request.head.ref, 'release/')
+        if: startsWith(github.event.ref, 'release/')
         run: |
           BRANCH_NAME="${{ github.event.ref }}"
           VERSION=${BRANCH_NAME#release/}
@@ -21,9 +21,9 @@ jobs:
         run: git checkout -b release/${{ env.RELEASE_VERSION }}
         
       - name: Extract version from branch name (for release branches)
-        if: startsWith(github.event.pull_request.head.ref, 'release/')
+        if: startsWith(github.event.ref, 'release/')
         run: |
-          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          BRANCH_NAME="${{ github.event.ref }}"
           VERSION=${BRANCH_NAME#release/}
 
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
