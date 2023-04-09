@@ -11,4 +11,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Everything since the beginning!
 
-[Unreleased]: https://github.com/allenphilip93/pokemon-gym-leader/compare/https://github.com/allenphilip93/pokemon-gym-leader...HEAD
+[Unreleased]: https://github.com/thomaseizinger/github-action-gitflow-release-workflow/compare/https://github.com/thomaseizinger/github-action-gitflow-release-workflow...HEAD
