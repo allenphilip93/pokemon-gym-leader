@@ -4,5 +4,5 @@
 
 To play just download from release and click `game.exe`
 
-## Credits
+## Tools Used
 - pokemon essentials
