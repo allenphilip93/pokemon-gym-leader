@@ -18,5 +18,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Good examples and basic guidelines, including proper date formatting.
 - Counter-examples: "What makes unicorns cry?".
 
-[unreleased]: https://github.com/allenphilip93/pokemon-gym-leader/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/allenphilip93/pokemon-gym-leader/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/allenphilip93/pokemon-gym-leader/releases/tag/v0.1.0
