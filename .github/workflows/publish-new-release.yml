@@ -32,12 +32,6 @@ jobs:
 
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
       
-#       - name: Create Release
-#         run: gh release create $RELEASE_VERSION --generate-notes
-#         env:
-#           RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
       - name: "📥 Check-out"
         uses: actions/checkout@v1
         
@@ -84,6 +78,3 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: ${{ steps.generate-release-changelog.outputs.changelog }}
-
-
-      
