@@ -33,16 +33,15 @@ jobs:
       # Fortunately, yarn has a built-in command for doing this!
 #       - name: Bump version in package.json
 #         run: yarn version --new-version ${{ github.event.inputs.version }} --no-git-tag-version
-      - name: Update Changelog
-        uses: stefanzweifel/changelog-updater-action@v1
-        with:
-          latest-version: ${{ github.event.inputs.version }}
+#       - name: Update Changelog
+#         uses: stefanzweifel/changelog-updater-action@v1
+#         with:
+#           latest-version: ${{ github.event.inputs.version }}
           
       - name: Commit changelog and manifest files
         id: make-commit
         run: |
-          git add CHANGELOG.md
-          git commit --message "Prepare release ${{ github.event.inputs.version }}"
+          git commit --allow-empty -m "Prepare release ${{ github.event.inputs.version }}"
 
           echo "::set-output name=commit::$(git rev-parse HEAD)"
 
