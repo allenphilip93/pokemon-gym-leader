@@ -32,8 +32,27 @@ jobs:
 
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
       
+      - name: Create Release
+        uses: thomaseizinger/create-release@1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          target_commitish: ${{ github.event.pull_request.merge_commit_sha }}
+          tag_name: ${{ env.RELEASE_VERSION }}
+          name: ${{ env.RELEASE_VERSION }}
+          draft: false
+          prerelease: false
+          
+      
       - name: "📥 Check-out"
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        
+      - name: Initialize mandatory git config
+        run: |
+          git config user.name "GitHub actions"
+          git config user.email noreply@github.com
+          git tag ${{ env.RELEASE_VERSION }}
+          git push --tags 
         
       - name: "✏️ Generate release changelog"
         id: generate-release-changelog
@@ -59,12 +78,7 @@ jobs:
           compareLink: true
           stripGeneratorNotice: true
           verbose: true
-       
-      - name: Initialize mandatory git config
-        run: |
-          git config user.name "GitHub actions"
-          git config user.email noreply@github.com
-
+      
 #       - name: Commit changelog and manifest files
 #         id: make-commit
 #         run: |
@@ -80,6 +94,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ env.RELEASE_VERSION }}
+          release_name: ${{ env.RELEASE_VERSION }}
           body: ${{ steps.generate-release-changelog.outputs.changelog }}
