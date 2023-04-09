@@ -9,8 +9,18 @@ jobs:
     name: "✏️ Changelog generation"
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: "📥 Check-out"
-        uses: actions/checkout@v2
+        run: git checkout -b release/${{ env.RELEASE_VERSION }}
+        
+      - name: Extract version from branch name (for release branches)
+        if: startsWith(github.event.pull_request.head.ref, 'release/')
+        run: |
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          VERSION=${BRANCH_NAME#release/}
+
+          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+        
       - name: "✏️ Generate full changelog"
         id: generate-full-changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
@@ -35,11 +45,27 @@ jobs:
           compareLink: true
           stripGeneratorNotice: true
           verbose: true
+      
       - name: "🖨️ Print changelog to console"
         run: cat CHANGELOG.md
+        
       - name: "📤 Upload changelog"
         uses: actions/upload-artifact@v1.0.0
         with:
           name: "Changelog"
           path: CHANGELOG.md
+      
+      - name: Initialize mandatory git config
+        run: |
+          git config user.name "GitHub actions"
+          git config user.email noreply@github.com
 
+      - name: Commit changelog and manifest files
+        id: make-commit
+        run: |
+          git add CHANGELOG.md
+          git commit --message "Prepare release ${{ env.RELEASE_VERSION }}"
+          echo "::set-output name=commit::$(git rev-parse HEAD)"
+      
+      - name: Push new branch
+        run: git push
