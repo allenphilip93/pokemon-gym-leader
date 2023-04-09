@@ -36,6 +36,8 @@ jobs:
         run: gh release create $RELEASE_VERSION --generate-notes
         env:
           RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} 
       
 #       - name: Create Release
 #         uses: thomaseizinger/create-release@1.0.0
