@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/checkout@v2
       - name: "📥 Check-out"
-        run: git checkout -b release/${{ env.RELEASE_VERSION }}
+        run: git checkout -b ${{ github.event.ref }}
         
       - name: Extract version from branch name (for release branches)
         if: startsWith(github.event.ref, 'release/')
