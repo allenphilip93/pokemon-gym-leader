@@ -55,3 +55,57 @@ def pbSetValidStreak
   max_streak = $player.money / 250
   $game_variables[96] = max_streak + 1
 end
+
+ItemHandlers::UseOnPokemonMaximum.add(:RARECANDY, proc { |item, pkmn|
+  if $game_variables[88] == 0
+    next GameData::GrowthRate.max_level - pkmn.level
+  else
+    next $game_variables[88] - pkmn.level
+  end
+})
+
+ItemHandlers::UseOnPokemon.add(:RARECANDY, proc { |item, qty, pkmn, scene|
+  if pkmn.shadowPokemon?
+    scene.pbDisplay(_INTL("It won't have any effect."))
+    next false
+  end
+  if $game_variables[88] == 0
+    if pkmn.level >= GameData::GrowthRate.max_level
+      new_species = pkmn.check_evolution_on_level_up
+      if !Settings::RARE_CANDY_USABLE_AT_MAX_LEVEL || !new_species
+        scene.pbDisplay(_INTL("It won't have any effect."))
+        next false
+      end
+      # Check for evolution
+      pbFadeOutInWithMusic {
+        evo = PokemonEvolutionScene.new
+        evo.pbStartScreen(pkmn, new_species)
+        evo.pbEvolution
+        evo.pbEndScreen
+        scene.pbRefresh if scene.is_a?(PokemonPartyScreen)
+      }
+      next true
+    end
+  else
+    if pkmn.level >= $game_variables[88]
+      new_species = pkmn.check_evolution_on_level_up
+      if !Settings::RARE_CANDY_USABLE_AT_MAX_LEVEL || !new_species
+        scene.pbDisplay(_INTL("It won't have any effect."))
+        next false
+      end
+      # Check for evolution
+      pbFadeOutInWithMusic {
+        evo = PokemonEvolutionScene.new
+        evo.pbStartScreen(pkmn, new_species)
+        evo.pbEvolution
+        evo.pbEndScreen
+        scene.pbRefresh if scene.is_a?(PokemonPartyScreen)
+      }
+      next true
+    end
+  end
+  # Level up
+  pbChangeLevel(pkmn, pkmn.level + qty, scene)
+  scene.pbHardRefresh
+  next true
+})
