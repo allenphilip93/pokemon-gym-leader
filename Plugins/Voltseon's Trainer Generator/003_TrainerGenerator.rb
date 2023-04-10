@@ -176,7 +176,9 @@ def pickRandomTrainerGroup(trainer_group_prob=[1,0,0,0])
     sample += Array.new(count, i)
   end
   sample = sample.shuffle()
-  return trainer_groups[sample[rand(0...sample.length)]]
+  trainer_idx = sample[rand(0...sample.length)]
+  $game_variables[87] = trainer_idx
+  return trainer_groups[trainer_idx]
 end
 
 # Checks through all the available pokemon for the preferred type
