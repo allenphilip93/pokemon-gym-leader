@@ -248,10 +248,18 @@ class QuestList_Scene
     if questStageLocation=="nil" || questStageLocation==""
       questStageLocation = "???"
     end
+
+    # Stage Difficulty
+    questStageDifficulty = $quest_data.getStageDifficulty(quest.id, quest.stage)
+    # If 'nil' or missing, set to '???'
+    if questStageDifficulty=="nil" || questStageDifficulty==""
+      questStageDifficulty = "???"
+    end
+
     drawFormattedTextEx(@sprites["overlay3"].bitmap,38,320,
       436,"<c2=#{colorQuest("orange")}>Task:</c2> #{questStageDesc}",@base,@shadow)
     drawFormattedTextEx(@sprites["overlay3"].bitmap,38,352,
-      436,"<c2=#{colorQuest("purple")}>Location:</c2> #{questStageLocation}",@base,@shadow)
+      436,"<c2=#{colorQuest("purple")}>Difficulty:</c2> #{questStageDifficulty}",@base,@shadow)
   end
 
   def drawOtherInfo(quest)

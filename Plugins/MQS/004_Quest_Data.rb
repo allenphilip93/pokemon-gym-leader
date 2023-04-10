@@ -5,6 +5,75 @@ module QuestModule
   Quest0 = {
   
   }
+
+  # Here's the simplest example of a single-stage quest with everything specified
+  Quest001 = {
+    :ID => "001",
+    :Name => "Become an Elite Gym Leader",
+    :QuestGiver => "Brock",
+    :Stage1 => "Pass the Level 1 Gym Leader Exam",
+    :Difficulty1 => "Easy",
+    :Location1 => "Pewter City",
+    :Stage2 => "Pass the Level 2 Gym Leader Exam",
+    :Difficulty1 => "Easy",
+    :Location2 => "Pewter City",
+    :Stage3 => "Pass the Level 3 Gym Leader Exam",
+    :Difficulty1 => "Medium",
+    :Location3 => "Pewter City",
+    :Stage4 => "Pass the Level 4 Gym Leader Exam",
+    :Difficulty1 => "Medium",
+    :Location4 => "Pewter City",
+    :Stage5 => "Pass the Level 5 Gym Leader Exam",
+    :Difficulty1 => "Medium",
+    :Location5 => "Pewter City",
+    :Stage6 => "Pass the Level 6 Gym Leader Exam",
+    :Difficulty1 => "Hard",
+    :Location6 => "Pewter City",
+    :Stage7 => "Pass the Level 7 Gym Leader Exam",
+    :Difficulty1 => "Hard",
+    :Location7 => "Pewter City",
+    :Stage8 => "Pass the Level 8 Gym Leader Exam",
+    :Difficulty1 => "Hard",
+    :Location8 => "Pewter City",
+    :Stage9 => "Pass the Pokemon League Elite Four Exam",
+    :Difficulty1 => "Insane",
+    :Location9 => "Pokemon League HQ",
+    :QuestDescription => "Stay strong and keep fighting challengers to increase your reputation. Also don't forget to help out the city since we can't apply for the exam unless city appeal increases.",
+    :RewardString => "You did it!! Thanks for everything you've done for Pewter City champ!"
+  }
+
+  Quest002 = {
+    :ID => "002",
+    :Name => "Find the missing kid",
+    :QuestGiver => "Security Cam",
+    :Stage1 => "Find security Cam's kid",
+    :Difficulty1 => "Easy",
+    :Location1 => "Route 1",
+    :QuestDescription => "Looks like Security Cam's kid went out to play in route 1 and never came back. Kid maybe lost somewhere in route 1",
+    :RewardString => "Something bling"
+  }
+
+  Quest003 = {
+    :ID => "003",
+    :Name => "Unlock the scout",
+    :QuestGiver => "Mayor",
+    :Stage1 => "Unlock the scout",
+    :Difficulty1 => "Easy",
+    :Location1 => "Pewter City",
+    :QuestDescription => "Mayor advises to bring in a scout to fight strong trainers in exchange for faster reputation growth. But this might cost you..",
+    :RewardString => "Faster progression"
+  }
+
+  Quest004 = {
+    :ID => "004",
+    :Name => "Investigate disturbance in the forest",
+    :QuestGiver => "Elder Paul",
+    :Stage1 => "Investigate disturbance in the forest",
+    :Difficulty1 => "Easy",
+    :Location1 => "Cerulean Forest",
+    :QuestDescription => "There is rumor that people are hearing eerie noises in the forest at night which is preventing folks from harvesting food.",
+    :RewardString => "Some food"
+  }
   
   # Here's the simplest example of a single-stage quest with everything specified
   Quest1 = {
