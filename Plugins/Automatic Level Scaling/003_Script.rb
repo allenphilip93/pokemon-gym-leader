@@ -39,10 +39,15 @@ class AutomaticLevelScaling
     return level
   end
 
-  def self.setNewLevel(pokemon, difference_from_average = 0)
+  def self.setNewLevel(pokemon, difference_from_average = 0, level_cap = 0)
     # Checks for only_scale_if_higher and only_scale_if_lower
-    higher_level_block = @@settings[:only_scale_if_higher] && pokemon.level > pbBalancedLevel($player.party)
-    lower_level_block = @@settings[:only_scale_if_lower] && pokemon.level < pbBalancedLevel($player.party)
+    if level_cap > 0
+      higher_level_block = @@settings[:only_scale_if_higher] && pokemon.level > level_cap
+      lower_level_block = @@settings[:only_scale_if_lower] && pokemon.level < level_cap
+    else
+      higher_level_block = @@settings[:only_scale_if_higher] && pokemon.level > pbBalancedLevel($player.party)
+      lower_level_block = @@settings[:only_scale_if_lower] && pokemon.level < pbBalancedLevel($player.party)
+    end
     unless higher_level_block || lower_level_block
       pokemon.level = AutomaticLevelScaling.getScaledLevel
 

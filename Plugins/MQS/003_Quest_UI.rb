@@ -236,10 +236,14 @@ class QuestList_Scene
     pbDrawTextPositions(@sprites["overlay2"].bitmap,[
       ["#{questName}",6,6,0,Color.new(248,248,248),Color.new(0,0,0),true]
     ])
-    # Quest description
-    questDesc = "<c2=#{colorQuest("blue")}>Overview:</c2> #{$quest_data.getQuestDescription(quest.id)}"
-    drawFormattedTextEx(@sprites["overlay3"].bitmap,38,52,
-      436,questDesc,@base,@shadow)
+
+    # Stage Difficulty
+    questStageDifficulty = $quest_data.getStageDifficulty(quest.id, quest.stage)
+    # If 'nil' or missing, set to '???'
+    if questStageDifficulty=="nil" || questStageDifficulty==""
+      questStageDifficulty = "???"
+    end
+
     # Stage description
     questStageDesc = $quest_data.getStageDescription(quest.id,quest.stage)
     # Stage location
@@ -248,10 +252,24 @@ class QuestList_Scene
     if questStageLocation=="nil" || questStageLocation==""
       questStageLocation = "???"
     end
+
+    # Quest description
+    questDesc     = "<c2=#{colorQuest("blue")}>Overview:</c2> #{$quest_data.getQuestDescription(quest.id)}"
+    difficulyDesc = "<c2=#{colorQuest("green")}>Difficulty:</c2> #{questStageDifficulty}"
+    locationDesc  = "<c2=#{colorQuest("green")}>Location:</c2> #{questStageLocation}"
+
+    drawFormattedTextEx(@sprites["overlay3"].bitmap,38,52,
+      436,difficulyDesc,@base,@shadow)
+    drawFormattedTextEx(@sprites["overlay3"].bitmap,38,84,
+      436,locationDesc,@base,@shadow)
+    drawFormattedTextEx(@sprites["overlay3"].bitmap,38,124,
+      436,questDesc,@base,@shadow)
+    
+
     drawFormattedTextEx(@sprites["overlay3"].bitmap,38,320,
       436,"<c2=#{colorQuest("orange")}>Task:</c2> #{questStageDesc}",@base,@shadow)
-    drawFormattedTextEx(@sprites["overlay3"].bitmap,38,352,
-      436,"<c2=#{colorQuest("purple")}>Location:</c2> #{questStageLocation}",@base,@shadow)
+    # drawFormattedTextEx(@sprites["overlay3"].bitmap,38,352,
+    #   436,"<c2=#{colorQuest("purple")}>Location:</c2> #{questStageLocation}",@base,@shadow)
   end
 
   def drawOtherInfo(quest)

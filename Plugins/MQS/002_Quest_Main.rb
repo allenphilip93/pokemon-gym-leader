@@ -9,15 +9,17 @@ class Quest
   attr_accessor :new
   attr_accessor :color
   attr_accessor :story
+  attr_accessor :difficulty
 
   def initialize(id,color,story)
-    self.id       = id
-    self.stage    = 1
-    self.time     = Time.now
-    self.location = $game_map.name
-    self.new      = true
-    self.color    = color
-    self.story    = story
+    self.id         = id
+    self.stage      = 1
+    self.time       = Time.now
+    self.location   = $game_map.name
+    self.new        = true
+    self.color      = color
+    self.story      = story
+    self.difficulty = difficulty
   end
   
   def stage=(value)
@@ -151,6 +153,7 @@ class Player_Quests
     for i in 0...@active_quests.length
       if @active_quests[i].id == quest
         @active_quests[i].stage = stageNum
+        @active_quests[i].difficulty = difficulty
         @active_quests[i].color = color if color != nil
         @active_quests[i].new = true # Setting this back to true makes the "!" icon appear when the quest updates
         found = true
@@ -285,6 +288,12 @@ class QuestData
   # Get current task location
   def getStageLocation(quest,stage)
     loc = ("Location" + "#{stage}").to_sym
+    return "#{QuestModule.const_get(quest)[loc]}"
+  end  
+
+  # Get current task difficulty
+  def getStageDifficulty(quest,stage)
+    loc = ("Difficulty" + "#{stage}").to_sym
     return "#{QuestModule.const_get(quest)[loc]}"
   end  
 

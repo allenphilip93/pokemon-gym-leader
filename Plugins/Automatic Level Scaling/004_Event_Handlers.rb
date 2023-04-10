@@ -18,7 +18,17 @@ EventHandlers.add(:on_wild_pokemon_created, :automatic_level_scaling,
 EventHandlers.add(:on_trainer_load, :automatic_level_scaling,
   proc { |trainer|
     id = pbGet(LevelScalingSettings::TRAINER_VARIABLE)
-    if trainer && id != 0
+    if $game_switches[99] # Gym defense is ON
+      AutomaticLevelScaling.setDifficulty(1)
+      avarage_level = 0
+      trainer.party.each { |pokemon| avarage_level += pokemon.level }
+      avarage_level /= trainer.party.length
+
+      for pokemon in trainer.party do
+        AutomaticLevelScaling.setNewLevel(pokemon, pokemon.level - avarage_level, $game_variables[88])
+      end
+
+    elsif trainer && id != 0
       AutomaticLevelScaling.setDifficulty(id)
       avarage_level = 0
       trainer.party.each { |pokemon| avarage_level += pokemon.level }
