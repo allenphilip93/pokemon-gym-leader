@@ -17,10 +17,10 @@ RT_COMMON_EVENT_ID = 3
 GENDER_NEUTRAL_CHANCE = 25 # Out of 100
 
 # Force the pokemon to be unevolved below a certain level (to disable put 0)
-FORCED_UNEVOLVED_LEVEL = 20
+FORCED_UNEVOLVED_LEVEL = 0
 
 # Force the pokemon to be fully evolved after a certain level (to disable put 100)
-FORCED_FULLY_EVOLVED_LEVEL = 45
+FORCED_FULLY_EVOLVED_LEVEL = 100
 
 # Whether to use the species blacklist or whitelist
 # true = blacklist, false = whitelist

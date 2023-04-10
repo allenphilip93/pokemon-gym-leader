@@ -114,42 +114,42 @@ def generateTrainerForGymDefense
   if $game_variables[94] == 0 # Gym Level
     level = [14,16]
     party_size = [1,2]
-    trainer_group = "weak"
+    trainer_group_prob = [0.90, 0.09, 0.009, 0.001]
   elsif $game_variables[94] == 1
     level = [24,26]
     party_size = [2,3]
-    trainer_group = "weak"
+    trainer_group_prob = [0.80, 0.15, 0.049, 0.001]
   elsif $game_variables[94] == 2
     level = [34,36]
     party_size = [3,4]
-    trainer_group = "weak"
+    trainer_group_prob = [0.70, 0.25, 0.045, 0.005]
   elsif $game_variables[94] == 3
     level = [44,46]
     party_size = [4,5]
-    trainer_group = "weak"
+    trainer_group_prob = [0.60, 0.30, 0.095, 0.005]
   elsif $game_variables[94] == 4
     level = [54,56]
     party_size = [5,6]
-    trainer_group = "moderate"
+    trainer_group_prob = [0.50, 0.40, 0.095, 0.005]
   elsif $game_variables[94] == 5
     level = [64,66]
     party_size = [6,6]
-    trainer_group = "moderate"
+    trainer_group_prob = [0.40, 0.40, 0.195, 0.005]
   elsif $game_variables[94] == 6
     level = [74,76]
     party_size = [6,6]
-    trainer_group = "moderate"
+    trainer_group_prob = [0.30, 0.40, 0.295, 0.005]
   elsif $game_variables[94] == 7
     level = [84,86]
-    party_size = [6,6
-    trainer_group = "strong"
+    party_size = [6,6]
+    trainer_group_prob = [0.20, 0.40, 0.395, 0.005]
   elsif $game_variables[94] == 8
     level = [94,96]
     party_size = [6,6]
-    trainer_group = "strong"
+    trainer_group_prob = [0.10, 0.40, 0.495, 0.005]
   end
-  if $game_switches
-    trainer_group = "strong"
+  if $game_switches[96]
+    trainer_group_prob = [0, 0, 0.990, 0.010]
   end
-  vGenerateTrainerWEvent(7, 2, level,party_size, trainer_group)
+  vGenerateTrainerWEvent(7, 2, level,party_size, trainer_group_prob)
 end

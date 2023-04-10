@@ -24,7 +24,7 @@
 ######################################
 
 # Sets the event ID to a random generated trainer
-def vGenerateTrainerWEvent(eventID, items=0,levels=[50,50],party_size=[3,6],trainer_group="weak",name_variable=1,class_variable=2,gender_variable=3,event_variable=4)
+def vGenerateTrainerWEvent(eventID, items=0,levels=[50,50],party_size=[3,6],trainer_group_prob=[1,0,0,0],name_variable=1,class_variable=2,gender_variable=3,event_variable=4)
   # Check for event viability
   return false if eventID.nil? || (!eventID.is_a?(Integer) && !eventID.is_a?(Game_Event))
   # Set the event
@@ -70,11 +70,11 @@ def vGenerateTrainerWEvent(eventID, items=0,levels=[50,50],party_size=[3,6],trai
   #   ], 
   #   true)
   pbCommonEvent(RT_COMMON_EVENT_ID)
-  return vRandomTrainerBattle(trainer_class,trainer_name,items,levels,party_size, trainer_group)
+  return vRandomTrainerBattle(trainer_class,trainer_name,items,levels,party_size, trainer_group_prob)
 end
 
 # Sets the event ID to a random generated trainer
-def vGenerateTrainer(items=0,levels=[50,50],party_size=[3,6],trainer_group="weak",name_variable=1,class_variable=2,gender_variable=3,event_variable=4)
+def vGenerateTrainer(items=0,levels=[50,50],party_size=[3,6],trainer_group_prob=[1,0,0,0],name_variable=1,class_variable=2,gender_variable=3,event_variable=4)
   # Check for event viability
   # return false if eventID.nil? || (!eventID.is_a?(Integer) && !eventID.is_a?(Game_Event))
   # Set the event
@@ -110,7 +110,7 @@ def vGenerateTrainer(items=0,levels=[50,50],party_size=[3,6],trainer_group="weak
 end
 
 # Generates and initiates a trainer battle
-def vRandomTrainerBattle(trainer_class,trainer_name,items,levels,party_size,trainer_group)
+def vRandomTrainerBattle(trainer_class,trainer_name,items,levels,party_size,trainer_group_prob)
   return false if trainer_class.nil? || trainer_name.nil?
   # Get a random lose text
   lose_text = LOSE_TEXTS[rand(0...LOSE_TEXTS.length)]
@@ -124,6 +124,13 @@ def vRandomTrainerBattle(trainer_class,trainer_name,items,levels,party_size,trai
     item = ITEM_WHITELIST[rand(0...ITEM_WHITELIST.length)] if items>0
     trainer.items.push(GameData::Item.try_get(item))
   end
+
+  trainer_group = pickRandomTrainerGroup(trainer_group_prob)
+  if trainer_group == "legendary"
+    party_size = [1,3]
+  end
+  pbMessage(_INTL("\\bHmm looks like it is a {1} trainer", trainer_group))
+
   # Create each Pokémon owned by the trainer
   for i in 0...rand(party_size[0]..party_size[1]) # Iterate through a random party size
     # Check if the trainer has any preferred types
@@ -160,6 +167,18 @@ def vRandomTrainerBattle(trainer_class,trainer_name,items,levels,party_size,trai
   return true
 end
 
+def pickRandomTrainerGroup(trainer_group_prob=[1,0,0,0])
+  trainer_groups = ["weak", "moderate", "strong", "legendary"]
+  sample = []
+  for i in 0...trainer_group_prob.length
+    count = trainer_group_prob[i] * 1000
+    count = count.to_int
+    sample += Array.new(count, i)
+  end
+  sample = sample.shuffle()
+  return trainer_groups[sample[rand(0...sample.length)]]
+end
+
 # Checks through all the available pokemon for the preferred type
 def vGetRandomPreferredSpecies(preferred_types, trainer_group="weak")
   # Only get all species if using the blacklist
@@ -172,6 +191,7 @@ def vGetRandomPreferredSpecies(preferred_types, trainer_group="weak")
       species_arr.push(s.id)
     end
   end
+
   # Generate any Pokemon if no preferred type is set
   if (preferred_types == [] || preferred_types.nil?)
     if trainer_group == "weak"
