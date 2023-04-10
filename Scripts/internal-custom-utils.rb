@@ -112,22 +112,44 @@ ItemHandlers::UseOnPokemon.add(:RARECANDY, proc { |item, qty, pkmn, scene|
 
 def generateTrainerForGymDefense
   if $game_variables[94] == 0 # Gym Level
-    vGenerateTrainerWEvent(7, 2, [14,16],[1,2])
+    level = [14,16]
+    party_size = [1,2]
+    trainer_group = "weak"
   elsif $game_variables[94] == 1
-    vGenerateTrainerWEvent(7, 2, [24,26],[2,3])
+    level = [24,26]
+    party_size = [2,3]
+    trainer_group = "weak"
   elsif $game_variables[94] == 2
-    vGenerateTrainerWEvent(7, 2, [34,36],[3,4])
+    level = [34,36]
+    party_size = [3,4]
+    trainer_group = "weak"
   elsif $game_variables[94] == 3
-    vGenerateTrainerWEvent(7, 2, [44,46],[4,5])
+    level = [44,46]
+    party_size = [4,5]
+    trainer_group = "weak"
   elsif $game_variables[94] == 4
-    vGenerateTrainerWEvent(7, 2, [54,56],[5,6])
+    level = [54,56]
+    party_size = [5,6]
+    trainer_group = "moderate"
   elsif $game_variables[94] == 5
-    vGenerateTrainerWEvent(7, 2, [64,66],[6,6])
+    level = [64,66]
+    party_size = [6,6]
+    trainer_group = "moderate"
   elsif $game_variables[94] == 6
-    vGenerateTrainerWEvent(7, 2, [74,76],[6,6])
+    level = [74,76]
+    party_size = [6,6]
+    trainer_group = "moderate"
   elsif $game_variables[94] == 7
-    vGenerateTrainerWEvent(7, 2, [84,86],[6,6])
+    level = [84,86]
+    party_size = [6,6
+    trainer_group = "strong"
   elsif $game_variables[94] == 8
-    vGenerateTrainerWEvent(7, 2, [94,96],[6,6])
+    level = [94,96]
+    party_size = [6,6]
+    trainer_group = "strong"
   end
+  if $game_switches
+    trainer_group = "strong"
+  end
+  vGenerateTrainerWEvent(7, 2, level,party_size, trainer_group)
 end
